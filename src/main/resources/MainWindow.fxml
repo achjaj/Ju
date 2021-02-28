@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.embed.swing.SwingNode?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="750" prefWidth="1000"
+            fx:controller="org.achjaj.MainWindow">
+    <top>
+        <ToolBar />
+    </top>
+    <center>
+        <SplitPane orientation="HORIZONTAL">
+            <SplitPane orientation="VERTICAL">
+                <TabPane fx:id="mainTabs"/>
+                <TabPane fx:id="termTabs"/>
+            </SplitPane>
+            <ListView fx:id="workspaceView"/>
+        </SplitPane>
+    </center>
+
+</BorderPane>
