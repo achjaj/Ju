@@ -1,54 +1,36 @@
 package org.achjaj.project;
 
 import ch.systemsx.cisd.hdf5.HDF5Factory;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
-import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class Workspace {
-    private ListView<String> view;
     private final Path wsFile;
-    private Callback callback;
+    private Callback onUpdate;
 
-    private final EventHandler<MouseEvent> clickAction = event -> {
-        var varName = view.getSelectionModel().getSelectedItem();
-
-        callback.fire(getVariable(varName));
-    };
-
-    public Workspace(ListView<String> view, Path project) {
-        this.view = view;
+    public Workspace(Path project) {
         this.wsFile = project.resolve("workspace.h5").toAbsolutePath();
-
-        view.setOnMouseClicked(clickAction);
-
-        update();
     }
 
     public void update() {
+        List<String> names = null;
+
         if (Files.isRegularFile(wsFile)) {
             var reader = HDF5Factory.openForReading(wsFile.toFile());
-            var vars = reader.getGroupMembers("/");
+            names = reader.getGroupMembers("/");
             reader.close();
-
-            Platform.runLater(() ->
-                view.setItems(FXCollections.observableArrayList(vars)));
-
-        } else {
-            view.setItems(null);
         }
+
+        onUpdate.fire(names);
     }
 
-    public void setCallback(Callback callback) {
-        this.callback = callback;
+    public void setOnUpdate(Callback onUpdate) {
+        this.onUpdate = onUpdate;
     }
 
-    private JuliaVariable getVariable(String varName) {
+    public JuliaVariable getVariable(String varName) {
         var reader = HDF5Factory.openForReading(wsFile.toFile());
         var info = reader.getDataSetInformation("/" + varName);
 
@@ -72,6 +54,6 @@ public class Workspace {
     }
 
     public interface Callback {
-        void fire(JuliaVariable data);
+        void fire(List<String> names);
     }
 }

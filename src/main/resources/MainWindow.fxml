@@ -7,12 +7,16 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.embed.swing.SwingNode?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.control.Button?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="750" prefWidth="1000"
             fx:controller="org.achjaj.MainWindow">
     <top>
-        <ToolBar />
+        <ToolBar>
+            <Button text="Open project" onAction="#openProject" />
+        </ToolBar>
     </top>
     <center>
         <SplitPane orientation="HORIZONTAL">
@@ -20,7 +24,11 @@
                 <TabPane fx:id="mainTabs"/>
                 <TabPane fx:id="termTabs"/>
             </SplitPane>
-            <ListView fx:id="workspaceView"/>
+
+            <SplitPane orientation="VERTICAL">
+                <ListView fx:id="workspaceView"/>
+                <TreeView fx:id="projectExplorer" />
+            </SplitPane>
         </SplitPane>
     </center>
 
