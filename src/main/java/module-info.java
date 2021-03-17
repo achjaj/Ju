@@ -12,5 +12,6 @@ module org.achjaj.ju {
     requires org.fxmisc.richtext;
 
     exports org.achjaj.ju;
+    exports org.achjaj.ju.project;
     opens org.achjaj.ju;
 }

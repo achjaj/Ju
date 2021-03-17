@@ -14,6 +14,7 @@ import javafx.util.StringConverter;
 import org.achjaj.ju.editor.EditorTab;
 import org.achjaj.ju.project.DataTab;
 import org.achjaj.ju.project.Project;
+import org.achjaj.ju.project.ProjectExplorer;
 import org.achjaj.ju.project.Workspace;
 import org.achjaj.ju.term.TermTab;
 import org.achjaj.ju.term.TtyConnectors;
@@ -42,7 +43,7 @@ public class MainWindow implements Initializable {
     @FXML
     private ListView<String> workspaceView;
     @FXML
-    private TreeView<Path> projectExplorer;
+    private ProjectExplorer projectExplorer;
 
     @FXML
     private void openProject() {
@@ -82,55 +83,12 @@ public class MainWindow implements Initializable {
         project.getWorkspace().setOnUpdate(onWorkspaceUpdate);
         project.getWorkspace().update();
 
-        project.setOnFileCreatedGUIAction(this::addToExplorer);
-        project.setOnFileDeletedGUIAction(this::removeFromExplorer);
+        project.setOnFileCreatedGUIAction(projectExplorer::addToRoot); // TODO check for root
+        project.setOnFileDeletedGUIAction(projectExplorer::removeFromRoot); // TODO check for root
 
-        fillExplorer(projectFolder);
+        projectExplorer.fill(projectFolder);
 
         //TODO: julia REPL cd() to project root
-    }
-
-    private void addToTreeItem(Path file, TreeItem<Path> root) {
-        var item = new TreeItem<>(file);
-
-        if (Files.isDirectory(file)) {
-            item.getChildren().add(new TreeItem<>());
-        }
-
-        root.getChildren().add(item);
-    }
-
-    private void removeFromExplorer(Path file) {
-        projectExplorer.getRoot().getChildren().removeIf(item -> item.getValue().equals(file));
-    }
-
-    private void addToExplorer(Path file) {
-        addToTreeItem(file, projectExplorer.getRoot());
-    }
-
-    private void fillExplorer(Path projectFolder) throws IOException {
-        var root = new TreeItem<>(projectFolder);
-        root.setExpanded(true);
-        projectExplorer.setRoot(root);
-
-        Files.list(projectFolder).forEachOrdered(this::addToExplorer);
-    }
-
-    private void setupTreeItem(TreeItem<Path> item) {
-        item.expandedProperty().addListener((o1, o2, expanded) -> {
-            if (expanded) {
-                item.getChildren().clear();
-
-                try {
-                    Files.list(item.getValue()).forEach(path -> addToTreeItem(path, item));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                item.getChildren().clear();
-                item.getChildren().add(new TreeItem<>());
-            }
-        });
     }
 
     private void openFile(Path file) throws IOException {
@@ -151,29 +109,6 @@ public class MainWindow implements Initializable {
 
             mainTabs.getTabs().add(new DataTab(juliaVariable));
             mainTabs.getSelectionModel().selectLast();
-        });
-
-        projectExplorer.setCellFactory(pathTreeView -> {
-            var cell = TextFieldTreeCell.forTreeView(new StringConverter<Path>() {
-                @Override
-                public String toString(Path path) {
-                    return path.getFileName().toString();
-                }
-
-                @Override
-                public Path fromString(String s) {
-                    return Path.of(s);
-                }
-            }).call(pathTreeView);
-
-            cell.treeItemProperty().addListener((observableValue, pathTreeItem, t1) ->  {
-                if (t1 != null) {
-                    cell.setItem(t1.getValue().getFileName());
-                    setupTreeItem(t1);
-                }
-            });
-
-            return cell;
         });
 
         projectExplorer.setOnMouseClicked(event -> {
