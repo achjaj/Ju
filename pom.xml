@@ -48,13 +48,6 @@
             <version>0.10.5</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.eclipse.lsp4j/org.eclipse.lsp4j -->
-        <dependency>
-            <groupId>org.eclipse.lsp4j</groupId>
-            <artifactId>org.eclipse.lsp4j</artifactId>
-            <version>0.10.0</version>
-        </dependency>
-
         <dependency>
             <groupId>org.jetbrains.jediterm</groupId>
             <artifactId>jediterm-pty</artifactId>
@@ -82,6 +75,12 @@
             <version>19.04.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.eclipse.lsp4j</groupId>
+            <artifactId>org.eclipse.lsp4j</artifactId>
+            <version>0.10.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -100,7 +99,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-                    <mainClass>org.achjaj.Main</mainClass>
+                    <mainClass>org.achjaj.ju.Main</mainClass>
                 </configuration>
             </plugin>
 
@@ -111,7 +110,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.achjaj.Main</mainClass>
+                            <mainClass>org.achjaj.ju.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

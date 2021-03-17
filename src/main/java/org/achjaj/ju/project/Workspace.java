@@ -1,4 +1,4 @@
-package org.achjaj.project;
+package org.achjaj.ju.project;
 
 import ch.systemsx.cisd.hdf5.HDF5Factory;
 

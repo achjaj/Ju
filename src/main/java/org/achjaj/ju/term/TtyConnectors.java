@@ -1,4 +1,4 @@
-package org.achjaj.term;
+package org.achjaj.ju.term;
 
 import com.jediterm.pty.PtyMain;
 import com.jediterm.terminal.TtyConnector;

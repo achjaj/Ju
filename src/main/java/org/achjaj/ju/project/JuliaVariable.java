@@ -1,4 +1,4 @@
-package org.achjaj.project;
+package org.achjaj.ju.project;
 
 public class JuliaVariable {
     private final long[] dimensions;

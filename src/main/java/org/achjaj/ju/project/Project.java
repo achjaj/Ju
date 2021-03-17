@@ -1,4 +1,4 @@
-package org.achjaj.project;
+package org.achjaj.ju.project;
 
 import java.io.IOException;
 import java.nio.file.Path;

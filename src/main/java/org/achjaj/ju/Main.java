@@ -1,4 +1,4 @@
-package org.achjaj;
+package org.achjaj.ju;
 
 import ch.systemsx.cisd.hdf5.HDF5Factory;
 import javafx.application.Application;
@@ -6,11 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.apache.log4j.Level;
+import org.achjaj.ju.lsp.Client;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
+import org.eclipse.lsp4j.Position;
+import org.eclipse.lsp4j.TextDocumentItem;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -39,8 +44,8 @@ public class Main extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws URISyntaxException, IOException {
-        LogManager.getRootLogger().setLevel(Level.OFF);
+    public static void main(String[] args) throws Throwable, URISyntaxException, IOException {
+        //BasicConfigurator.configure();
         LogManager.shutdown();
 
         resourceManager = new ResourceManager(Main.class.getResource("/MainWindow.fxml").toURI());

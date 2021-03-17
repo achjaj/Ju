@@ -1,4 +1,4 @@
-package org.achjaj.project;
+package org.achjaj.ju.project;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -10,6 +10,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
+import org.achjaj.ju.project.JuliaVariable;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;

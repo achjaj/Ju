@@ -1,4 +1,4 @@
-package org.achjaj.term;
+package org.achjaj.ju.term;
 
 import com.jediterm.terminal.TtyConnector;
 import com.jediterm.terminal.ui.JediTermWidget;

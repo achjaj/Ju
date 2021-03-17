@@ -1,4 +1,4 @@
-package org.achjaj;
+package org.achjaj.ju;
 
 import java.io.IOException;
 import java.net.URI;

@@ -1,4 +1,4 @@
-module org.achjaj {
+module org.achjaj.ju {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.swing;
@@ -6,7 +6,11 @@ module org.achjaj {
     requires jediterm.pty;
     requires pty4j;
     requires jhdf5;
+    requires org.eclipse.lsp4j;
+    requires org.eclipse.lsp4j.jsonrpc;
+    requires java.sql;
+    requires org.fxmisc.richtext;
 
-    exports org.achjaj;
-    opens org.achjaj;
+    exports org.achjaj.ju;
+    opens org.achjaj.ju;
 }
